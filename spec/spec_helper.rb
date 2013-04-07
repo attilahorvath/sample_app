@@ -41,4 +41,8 @@ class Capybara::Session
   def should_have_title(title = "")
     find('title').native.text.should == title
   end
+
+  def should_not_have_title(title = "")
+    find('title').native.text.should_not == title
+  end
 end
