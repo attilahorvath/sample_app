@@ -36,13 +36,3 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 end
-
-class Capybara::Session
-  def should_have_title(title = "")
-    find('title').native.text.should == title
-  end
-
-  def should_not_have_title(title = "")
-    find('title').native.text.should_not == title
-  end
-end
