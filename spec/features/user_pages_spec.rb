@@ -52,6 +52,17 @@ describe "User pages" do
 
     it { should have_header('Sign up') }
     it { should have_title(full_title('Sign up')) }
+
+    describe "as signed in" do
+      let(:user) { FactoryGirl.create(:user) }
+      before do
+        sign_in user
+        visit signup_path
+      end
+
+      it { should_not have_title('Sign up') }
+      it { should have_no_header('Sign up') }
+    end
   end
 
   describe "profile page" do

@@ -4,7 +4,7 @@ def valid_user
   fill_in "Name", with: "Example User"
   fill_in "Email", with: "user@example.com"
   fill_in "Password", with: "foobar"
-  fill_in "Confirmation", with: "foobar"
+  fill_in "Confirm Password", with: "foobar"
 end
 
 def sign_in(user)
@@ -22,6 +22,12 @@ end
 RSpec::Matchers.define :have_header do |header|
   match do |page|
     page.should have_selector('h1', text: header)
+  end
+end
+
+RSpec::Matchers.define :have_no_header do |header|
+  match do |page|
+    page.should have_no_selector('h1', text: header)
   end
 end
 

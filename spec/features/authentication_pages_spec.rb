@@ -22,6 +22,15 @@ describe "Authentication" do
       end
     end
   end
+
+  describe "while not signed in" do
+    before { visit root_path }
+
+    it { should_not have_link('Users') }
+    it { should_not have_link('Profile') }
+    it { should_not have_link('Settings') }
+    it { should_not have_link('Sign out') }
+  end
   
   describe "with valid information" do
     let(:user) { FactoryGirl.create(:user) }
@@ -57,6 +66,17 @@ describe "Authentication" do
         describe "after signing in" do
           it "should render the desired protected page" do
             page.should have_title(full_title('Edit user'))
+          end
+
+          describe "when sigining in again" do
+            before do
+              click_link "Sign out"
+              sign_in user
+            end
+
+            it "should render the default (profile) page" do
+              page.should have_title(full_title(user.name))
+            end
           end
         end
       end
