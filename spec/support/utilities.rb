@@ -7,10 +7,16 @@ def valid_user
   fill_in "Confirmation", with: "foobar"
 end
 
-def valid_signin(user)
+def sign_in(user)
+  visit signin_path
   fill_in "Email", with: user.email
   fill_in "Password", with: user.password
   click_button "Sign in"
+end
+
+def sign_in_request(user)
+  # post session_path(email: user.email, password: user.password)
+  cookies[:remember_token] = user.remember_token
 end
 
 RSpec::Matchers.define :have_header do |header|
@@ -40,11 +46,5 @@ end
 RSpec::Matchers.define :have_no_success_message do
   match do |page|
     page.should have_no_selector('div.alert.alert-success')
-  end
-end
-
-RSpec::Matchers.define :have_title do |title|
-  match do |page|
-    page.find('title').native.text.should == title
   end
 end
