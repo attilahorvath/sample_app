@@ -1,0 +1,15 @@
+<aside class="span4">
+  <section>
+    <%= render 'shared/user_info', current_user: @user %>
+  </section>
+  <section>
+    <%= render 'shared/stats' %>
+    <% if @users && @users.any? %>
+      <div class="user_avatars">
+        <% @users.each do |user| %>
+          <%= link_to gravatar_for(user, size: 30), user %>
+        <% end %>
+      </div>
+    <% end %>
+  </section>
+</aside>
